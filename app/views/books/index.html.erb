@@ -1,0 +1,23 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Books</h1>
+
+<%= link_to "New Book", new_book_path %>
+
+<hr>
+
+<% @books.each do |book| %>
+
+  <%= render book %>
+
+  <%= link_to "Show", book %> |
+  <%= link_to "Edit", edit_book_path(book) %> |
+  <%= button_to "Delete", book, method: :delete %>
+
+  <%= button_to "Add to Cart",
+      cart_items_path(book_id: book.id),
+      method: :post %>
+
+  <hr>
+
+<% end %>

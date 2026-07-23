@@ -1,0 +1,39 @@
+<h1>My Cart</h1>
+
+<table border="1" cellpadding="10">
+  <tr>
+    <th>Book</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Subtotal</th>
+    <th>Action</th>
+  </tr>
+
+  <% total = 0 %>
+
+  <% @cart.cart_items.each do |item| %>
+
+    <% subtotal = item.book.price * item.quantity %>
+    <% total += subtotal %>
+
+    <tr>
+      <td><%= item.book.title %></td>
+      <td><%= number_to_currency(item.book.price, unit: "Rs. ", precision: 0) %></td>
+      <td><%= item.quantity %></td>
+      <td><%= number_to_currency(subtotal, unit: "Rs. ", precision: 0) %></td>
+      <td>
+        <%= button_to "Remove",
+            cart_item_path(item),
+            method: :delete %>
+      </td>
+    </tr>
+
+  <% end %>
+
+  <tr>
+    <td colspan="3"><strong>Total</strong></td>
+    <td colspan="2">
+      <strong><%= number_to_currency(total, unit: "Rs. ", precision: 0) %></strong>
+    </td>
+  </tr>
+</table>
